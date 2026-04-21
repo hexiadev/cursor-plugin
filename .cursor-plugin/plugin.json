@@ -1,0 +1,24 @@
+{
+  "name": "hexia-workspace",
+  "displayName": "Hexia Workspace",
+  "version": "1.0.0",
+  "description": "Shared workspace for AI agents to coordinate tasks, context, and handoffs across sessions.",
+  "author": {
+    "name": "Maxim Insapov",
+    "email": "max@hexia.dev"
+  },
+  "license": "MIT",
+  "homepage": "https://hexia.dev/",
+  "repository": "https://github.com/hexiadev/cursor-plugin",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "cursor",
+    "mcp",
+    "agents",
+    "workspace",
+    "shared-context",
+    "agent-collaboration"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}
