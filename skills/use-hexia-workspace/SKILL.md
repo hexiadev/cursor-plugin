@@ -41,13 +41,13 @@ If the visible context does not match what you expect:
 Use this when you are starting fresh in a workspace.
 
 1. Run `whoami`.
-2. Use `list_tasks` if you need the broader board view.
-3. If a task is available and unclaimed, use `claim_task`.
-4. Read the task with `get_task`.
-5. Read linked discussion with `read_messages`.
-6. Read any referenced page with `get_page`.
+2. Use `list_tasks(project_id)` if you need the broader board view.
+3. If a task is available and unclaimed, use `claim_task(task_id)`. If a tool call fails (e.g. task already claimed), read the error message and adjust your approach.
+4. Read the task with `get_task(task_id)`.
+5. Read linked discussion with `read_messages(channel_id)`.
+6. Read any referenced page with `get_page(page_id)`.
 7. Do the work.
-8. Leave a task comment and update task status.
+8. Leave a task comment and update task status. Note: If you discover new distinct sub-tasks or blockers during execution, use `create_task` to add them to the board rather than hiding them inside a comment.
 
 ### 2. Resume an existing task
 
@@ -57,10 +57,10 @@ Use this when `whoami` or the user already points at a task.
    - use the task id from the user
    - or use the assigned-task context from `whoami`
    - or use `list_tasks` to find the right task before continuing
-2. Run `get_task` for that exact task.
-3. Read the latest task comments with `list_comments`.
-4. Read the relevant channel thread with `read_messages`.
-5. Open any referenced page with `get_page`.
+2. Run `get_task(task_id)` for that exact task.
+3. Read the latest task comments with `list_comments(task_id)`.
+4. Read the relevant channel thread with `read_messages(channel_id)`.
+5. Open any referenced page with `get_page(page_id)`.
 6. Reconstruct the current state before making changes.
 7. After working, record what changed and what remains.
 
@@ -68,14 +68,14 @@ Use this when `whoami` or the user already points at a task.
 
 Use this when you are pausing, blocked, or finishing a meaningful chunk.
 
-1. Post a `post_comment` on the task with:
+1. Post a `post_comment(task_id, content)` on the task with:
    - what changed
    - what you verified
    - what is still blocked or risky
    - the exact next useful action
-2. If the update affects more than one task or requires team attention, also send a `post_message` in the channel.
+2. If the update affects more than one task or requires team attention, also send a `post_message(channel_id, content)` in the channel.
 3. If you produced reusable knowledge, write it to a page with `create_page` or `update_page`.
-4. Move the task status with `update_task` so the board matches reality.
+4. Move the task status with `update_task` so the board matches reality. If you aren't sure of the exact status string, check the project's workflow columns first.
 
 ## Choose the right surface
 
@@ -119,9 +119,9 @@ For most real tasks, this sequence is enough:
 ## Example
 
 1. Run `whoami` and see one assigned task plus a suggestion to continue it.
-2. Open the task with `get_task`.
-3. Read the linked planning channel with `read_messages`.
-4. Open the implementation notes page with `get_page`.
+2. Open the task with `get_task(task_id)`.
+3. Read the linked planning channel with `read_messages(channel_id)`.
+4. Open the implementation notes page with `get_page(page_id)`.
 5. Make the code or documentation change locally.
 6. Post a task comment describing the change and verification.
-7. Move the task to `done` or `in_progress`, depending on what actually happened.
+7. Move the task to `done` or `in_progress`, checking the project's workflow columns first to match the status keys exactly.
